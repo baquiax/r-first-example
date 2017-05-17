@@ -1,0 +1,54 @@
+---
+title: "Prueba Estadistica Matematica"
+output: html_notebook
+---
+
+##Distribucion binomial
+
+```{r}
+x<-seq(0,10,1)
+pdf_binom<-dbinom(x, 10, 0.3)
+#pdf_binom
+tabla<-data.frame(x, pdf_binom)
+names(tabla) <-c("Var", "P(x)")
+tabla
+```
+
+##Grafica de PDF
+```{r}
+barplot(pdf_binom, main="Binomial", xlab="Var", ylab="P(Var)", col="red", ylim=c(0, 0.3))
+```
+
+```{r}
+cdf_binom<-pbinom(x, 10, 0.3)
+cdf_binom
+cdf_table<-data.frame(x, cdf_binom)
+names(cdf_table)<-c("var", "ac")
+cdf_table
+```
+
+```{r}
+plot(x, cdf_binom, main='acumulada', xlab='var', ylab='prob', lwd='3', col='red', type='b')
+```
+
+
+##Distribucion normal
+```{r}
+y<-seq(10, 90, 0.1)
+normal<-dnorm(y, mean(y),  9)
+plot(y, normal, main="Distr. Normal", xlab="Variable", ylab="Densidad", lwd="2", type='l')
+```
+
+##Calculo de probabilidad (Func)
+```{r}
+cdf_normal<-function(z1, z2) {
+  a1<-pnorm(z1, mean(y), 9)
+  a2<-pnorm(z2, mean(y), 9)
+  a2-a1
+}
+
+cdf_normal(40, 60)
+```
+
+## $P(40 \leq x \leq 60)=$ `r cdf_normal(40, 60)`
+
